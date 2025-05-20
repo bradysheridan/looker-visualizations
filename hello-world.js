@@ -23,11 +23,18 @@ looker.plugins.visualizations.add({
     element.innerHTML = `
       <style>
         .hello-world-vis {
-        //   height: 100%;
-        //   display: flex;
-        //   flex-direction: column;
-        //   justify-content: flex-start;
-        //   text-align: center;
+          /* Vertical centering */
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+        }
+        .hello-world-text-large {
+          font-size: 72px;
+        }
+        .hello-world-text-small {
+          font-size: 18px;
         }
       </style>
     `;
@@ -38,6 +45,7 @@ looker.plugins.visualizations.add({
 
     // Create an element to contain the text.
     this._textElement = container.appendChild(document.createElement("div"));
+
   },
   // Render in response to the data or settings changing
   updateAsync: function(data, element, config, queryResponse, details, done) {
@@ -45,10 +53,27 @@ looker.plugins.visualizations.add({
     // Clear any errors from previous updates
     this.clearErrors();
 
+    // Throw some errors and exit if the shape of the data isn't what this chart needs
+    if (queryResponse.fields.dimensions.length == 0) {
+      this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
+      return;
+    }
+
+    // Grab the first cell of the data
+    var firstRow = data[0];
+    var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
+
     // Insert the data into the page
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell("Hello world!");
+    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
+
+    // Set the size to the user-selected size
+    if (config.font_size == "small") {
+      this._textElement.className = "hello-world-text-small";
+    } else {
+      this._textElement.className = "hello-world-text-large";
+    }
 
     // We are done rendering! Let Looker know.
-    done();
+    done()
   }
 });

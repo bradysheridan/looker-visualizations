@@ -12,8 +12,20 @@ looker.plugins.visualizations.add({
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
+        #dashboard-layout-wrapper {
+            padding: 0 !important;
+        }
+        #vis {
+            width: 100% !important;
+            margin: 0px !important;
+        }
         .viz-wrap {
             border: 1px solid red;
+            display: flex;
+            justify-items: start;
+            justify-content: start;
+            width: auto;
+            height: auto;
         }
       </style>
     `;

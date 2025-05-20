@@ -2,19 +2,9 @@ looker.plugins.visualizations.add({
   // Id and Label are legacy properties that no longer have any function besides documenting
   // what the visualization used to have. The properties are now set via the manifest
   // form within the admin/visualizations page of Looker
-  id: "hello_world",
-  label: "Hello World",
+  id: "single_value",
+  label: "App - Single Value",
   options: {
-    font_size: {
-      type: "string",
-      label: "Font Size",
-      values: [
-        {"Large": "large"},
-        {"Small": "small"}
-      ],
-      display: "radio",
-      default: "large"
-    }
   },
   // Set up the initial state of the visualization
   create: function(element, config) {
@@ -22,26 +12,15 @@ looker.plugins.visualizations.add({
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <style>
-        .hello-world-vis {
-          /* Vertical centering */
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          text-align: center;
-        }
-        .hello-world-text-large {
-          font-size: 72px;
-        }
-        .hello-world-text-small {
-          font-size: 18px;
+        .viz-wrap {
+            border: 1px solid red;
         }
       </style>
     `;
 
     // Create a container element to let us center the text.
     var container = element.appendChild(document.createElement("div"));
-    container.className = "hello-world-vis";
+    container.className = "viz-wrap";
 
     // Create an element to contain the text.
     this._textElement = container.appendChild(document.createElement("div"));
@@ -54,12 +33,10 @@ looker.plugins.visualizations.add({
     this.clearErrors();
 
     // Throw some errors and exit if the shape of the data isn't what this chart needs
-    // if (queryResponse.fields.measures.length == 0) {
-    //   this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
-    //   return;
-    // }
-
-    console.log("hi");
+    if (queryResponse.fields.measures.length == 0) {
+      this.addError({title: "No Measures", message: "This chart requires measures."});
+      return;
+    }
 
     // Grab the first cell of the data
     var firstRow = data[0];
@@ -68,14 +45,7 @@ looker.plugins.visualizations.add({
     // Insert the data into the page
     this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
 
-    // Set the size to the user-selected size
-    if (config.font_size == "small") {
-      this._textElement.className = "hello-world-text-small";
-    } else {
-      this._textElement.className = "hello-world-text-large";
-    }
-
     // We are done rendering! Let Looker know.
-    done()
+    done();
   }
 });

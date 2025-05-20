@@ -20,12 +20,13 @@ looker.plugins.visualizations.add({
             margin: 0px !important;
         }
         .viz-wrap {
-            border: 1px solid red;
             display: flex;
             justify-items: start;
             justify-content: start;
             width: auto;
             height: auto;
+            font-family: sans-serif;
+            font-size: 3.2rem;
         }
       </style>
     `;

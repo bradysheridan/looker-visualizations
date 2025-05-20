@@ -54,15 +54,17 @@ looker.plugins.visualizations.add({
     this.clearErrors();
 
     // Throw some errors and exit if the shape of the data isn't what this chart needs
-    if (queryResponse.fields.dimensions.length == 0) {
-      this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
-      return;
-    }
+    // if (queryResponse.fields.measures.length == 0) {
+    //   this.addError({title: "No Dimensions", message: "This chart requires dimensions."});
+    //   return;
+    // }
+
+    console.log("hi");
 
     // Grab the first cell of the data
     var firstRow = data[0];
-    var firstCell = firstRow[queryResponse.fields.dimensions[0].name];
-
+    var firstCell = firstRow[queryResponse.fields.measures[0].name];
+    
     // Insert the data into the page
     this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(firstCell);
 

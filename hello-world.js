@@ -23,18 +23,11 @@ looker.plugins.visualizations.add({
     element.innerHTML = `
       <style>
         .hello-world-vis {
-          /* Vertical centering */
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          text-align: center;
-        }
-        .hello-world-text-large {
-          font-size: 72px;
-        }
-        .hello-world-text-small {
-          font-size: 18px;
+        //   height: 100%;
+        //   display: flex;
+        //   flex-direction: column;
+        //   justify-content: flex-start;
+        //   text-align: center;
         }
       </style>
     `;
@@ -45,7 +38,6 @@ looker.plugins.visualizations.add({
 
     // Create an element to contain the text.
     this._textElement = container.appendChild(document.createElement("div"));
-
   },
   // Render in response to the data or settings changing
   updateAsync: function(data, element, config, queryResponse, details, done) {
@@ -53,20 +45,10 @@ looker.plugins.visualizations.add({
     // Clear any errors from previous updates
     this.clearErrors();
 
-    // Grab the first cell of the data
-    var text = "Hello world!"
-
     // Insert the data into the page
-    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell(text);
-
-    // Set the size to the user-selected size
-    if (config.font_size == "small") {
-      this._textElement.className = "hello-world-text-small";
-    } else {
-      this._textElement.className = "hello-world-text-large";
-    }
+    this._textElement.innerHTML = LookerCharts.Utils.htmlForCell("Hello world!");
 
     // We are done rendering! Let Looker know.
-    done()
+    done();
   }
 });

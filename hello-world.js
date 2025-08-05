@@ -8,15 +8,8 @@ looker.plugins.visualizations.add({
   },
   // Set up the initial state of the visualization
   create: function(element, config) {
-
-    window.parent.postMessage('hello1 parent!', '*');
-
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
-      <script>
-        window.parent.postMessage('hello2 parent!', '*');
-      </script>
-      
       <style>
         #dashboard-layout-wrapper {
             padding: 0 !important;
@@ -33,7 +26,6 @@ looker.plugins.visualizations.add({
             height: auto;
             font-family: sans-serif;
             font-size: 3rem;
-            color: red !important;
         }
       </style>
     `;
@@ -44,7 +36,6 @@ looker.plugins.visualizations.add({
 
     // Create an element to contain the text.
     this._textElement = container.appendChild(document.createElement("div"));
-
   },
   // Render in response to the data or settings changing
   updateAsync: function(data, element, config, queryResponse, details, done) {

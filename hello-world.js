@@ -4,8 +4,7 @@ looker.plugins.visualizations.add({
   // form within the admin/visualizations page of Looker
   id: "single_value",
   label: "App - Single Value",
-  options: {
-  },
+  options: {},
   // Set up the initial state of the visualization
   create: function(element, config) {
     // Insert a <style> tag with some styles we'll use later.
@@ -44,10 +43,10 @@ looker.plugins.visualizations.add({
     this.clearErrors();
 
     // Throw some errors and exit if the shape of the data isn't what this chart needs
-    if (queryResponse.fields.measures.length == 0) {
-      this.addError({title: "No Measures", message: "This chart requires measures."});
-      return;
-    }
+    // if (queryResponse.fields.measures.length == 0) {
+    //   this.addError({title: "No Measures", message: "This chart requires measures."});
+    //   return;
+    // }
 
     // Grab the first cell of the data
     var firstRow = data[0];

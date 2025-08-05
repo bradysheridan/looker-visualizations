@@ -11,6 +11,8 @@ looker.plugins.visualizations.add({
 
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
+      window.parent.postMessage('Hello Parent Frame!', '*');
+      
       <style>
         #dashboard-layout-wrapper {
             padding: 0 !important;

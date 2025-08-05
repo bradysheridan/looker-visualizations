@@ -29,6 +29,7 @@ looker.plugins.visualizations.add({
             height: auto;
             font-family: sans-serif;
             font-size: 3rem;
+            color: red !important;
         }
       </style>
     `;

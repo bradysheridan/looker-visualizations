@@ -9,10 +9,12 @@ looker.plugins.visualizations.add({
   // Set up the initial state of the visualization
   create: function(element, config) {
 
+    window.parent.postMessage('hello1 parent!', '*');
+
     // Insert a <style> tag with some styles we'll use later.
     element.innerHTML = `
       <script>
-        window.parent.postMessage('Hello Parent Frame!', '*');
+        window.parent.postMessage('hello2 parent!', '*');
       </script>
       
       <style>
